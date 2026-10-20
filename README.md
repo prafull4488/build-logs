@@ -10,6 +10,7 @@ Each log covers the problem, what I planned, the architecture, technologies, how
 | [Garage OS](projects/garage-os/) | An operating system for a motorcycle service centre | Designed and built (AI-assisted development) | Live, building module by module |
 | [Azumi Studio Planner](projects/studio-planner/) | A studio operating system for an interior design practice | Designed and built (AI-assisted development) | Live, in daily use |
 | [Azumi Designs website](projects/azumi-website/) | A public website with a built-in CMS for an interior design studio | Designed and built (AI-assisted development) | Live |
+| [Trackin](projects/trackin/) | A private health record for one family, read on the device | Designed and built (AI-assisted development) | Private beta, in family use |
 | [AutoDocBG](projects/autodocbg/) | Vehicle inspection booking platform for Bulgaria | Product collaboration | Pre-launch |
 | [This portfolio](projects/portfolio/) | A personal site built from an interview, not a template | Designed and built (AI-assisted development) | Live |
 | [AI operations lab](projects/ai-ops-lab/) | Local-first model routing and agents for infrastructure work | Designed and built | Ongoing |
