@@ -1,5 +1,5 @@
 {
- "updated": "21-10-2026",
+ "updated": "22-10-2026",
  "projects": [
   {
    "slug": "garage-os",
@@ -274,7 +274,8 @@
    "tech": [
     "JavaScript (no framework), installable PWA",
     "pdf.js and Tesseract.js (English and Bulgarian OCR in the browser)",
-    "Supabase (Postgres, Auth with TOTP, RLS, Storage)",
+    "Supabase (Postgres, Auth with TOTP, RLS, Storage, Edge Functions, pg_cron)",
+    "Telegram Bot API and Brevo (reminders)",
     "Netlify",
     "GitHub Actions",
     "Playwright",
@@ -305,6 +306,10 @@
     [
      "Word results as first-class values",
      "Urine routine and screening tests (Negative, Nil, Trace) are saved with a normal or abnormal flag instead of being dropped."
+    ],
+    [
+     "One schedule rule for app and reminders",
+     "Whether a dose is due on a date (daily, weekdays, alternate days, days of each month) is decided by the same rule on the phone and in the reminder job, so the screen and the messages never disagree."
     ]
    ],
    "learned": [
@@ -333,6 +338,18 @@
     [
      "21-10-2026",
      "Trends, WHO growth charts, vaccine schedule, two views; parser checked against real reports"
+    ],
+    [
+     "22-10-2026",
+     "Child record from the baby book; family accounts managed in the app, profiles private unless shared"
+    ],
+    [
+     "22-10-2026",
+     "Medicines from prescriptions, a 3-day share link, reminders by Telegram and email"
+    ],
+    [
+     "22-10-2026",
+     "Repeating schedules: alternate days, days of each month, weekdays"
     ]
    ],
    "activity_source": "trackin",
@@ -520,7 +537,8 @@
   "trackin": {
    "2026-10-15": 1,
    "2026-10-19": 1,
-   "2026-10-21": 7
+   "2026-10-21": 10,
+   "2026-10-22": 9
   }
  }
 }

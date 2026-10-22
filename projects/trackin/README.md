@@ -32,7 +32,7 @@ Netlify holds no health data. Every table has row-level security plus a restrict
 
 ## Technologies
 
-JavaScript (no framework), installable PWA, pdf.js and Tesseract.js (English and Bulgarian OCR in the browser), Supabase (Postgres, Auth with TOTP, RLS, Storage), Netlify, GitHub Actions, Playwright, WHO growth standards, IAP 2025 vaccine schedule
+JavaScript (no framework), installable PWA, pdf.js and Tesseract.js (English and Bulgarian OCR in the browser), Supabase (Postgres, Auth with TOTP, RLS, Storage, Edge Functions, pg_cron), Telegram Bot API and Brevo (reminders), Netlify, GitHub Actions, Playwright, WHO growth standards, IAP 2025 vaccine schedule
 
 ## How AI was used
 
@@ -49,6 +49,7 @@ JavaScript (no framework), installable PWA, pdf.js and Tesseract.js (English and
 | Suggestions with reasons, never prescriptions | Every highlight says why it is shown and points to the doctor. |
 | Hosted beta on self-hostable parts | Supabase and a static app can move to k3s later without a rewrite. |
 | Word results as first-class values | Urine routine and screening tests (Negative, Nil, Trace) are saved with a normal or abnormal flag instead of being dropped. |
+| One schedule rule for app and reminders | Whether a dose is due on a date (daily, weekdays, alternate days, days of each month) is decided by the same rule on the phone and in the reminder job, so the screen and the messages never disagree. |
 
 ## What I learned
 
@@ -66,7 +67,7 @@ Code is private and the app holds family health records, so there is no public d
 
 ## Activity
 
-9 commits across 3 active days, 2026-10-15 to 2026-10-21 (counts only; commit messages stay private).
+21 commits across 4 active days, 2026-10-15 to 2026-10-22 (counts only; commit messages stay private).
 
 | Date | Milestone |
 |---|---|
@@ -74,6 +75,9 @@ Code is private and the app holds family health records, so there is no public d
 | 19-10-2026 | Hosted beta: sign-in with 2FA, profiles, report upload and on-device OCR |
 | 21-10-2026 | On-device parser and batch upload; no paid AI |
 | 21-10-2026 | Trends, WHO growth charts, vaccine schedule, two views; parser checked against real reports |
+| 22-10-2026 | Child record from the baby book; family accounts managed in the app, profiles private unless shared |
+| 22-10-2026 | Medicines from prescriptions, a 3-day share link, reminders by Telegram and email |
+| 22-10-2026 | Repeating schedules: alternate days, days of each month, weekdays |
 
 ## Screenshots
 

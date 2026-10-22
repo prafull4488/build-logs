@@ -152,7 +152,7 @@ PROJECTS = [
   ],
   "architecture": "flowchart LR\n  P[Phone, tablet or laptop] --> PWA[Installable web app on Netlify]\n  PWA --> OCR[On-device OCR + parser]\n  PWA --> AUTH[Supabase Auth: password + TOTP 2FA]\n  PWA --> DB[(Postgres: RLS + 2FA gate + audit log)]\n  PWA --> ST[(Private storage: original reports)]\n  GH[GitHub Actions] --> T[RLS tests, browser tests, secret scan]\n  GH --> MIG[Migrations to Supabase]",
   "architecture_note": "Netlify holds no health data. Every table has row-level security plus a restrictive policy that requires a 2FA session; the service key never leaves CI. The next phase moves the same app and a self-hosted Supabase to k3s with Helm and Argo CD.",
-  "tech": ["JavaScript (no framework), installable PWA", "pdf.js and Tesseract.js (English and Bulgarian OCR in the browser)", "Supabase (Postgres, Auth with TOTP, RLS, Storage)", "Netlify", "GitHub Actions", "Playwright", "WHO growth standards, IAP 2025 vaccine schedule"],
+  "tech": ["JavaScript (no framework), installable PWA", "pdf.js and Tesseract.js (English and Bulgarian OCR in the browser)", "Supabase (Postgres, Auth with TOTP, RLS, Storage, Edge Functions, pg_cron)", "Telegram Bot API and Brevo (reminders)", "Netlify", "GitHub Actions", "Playwright", "WHO growth standards, IAP 2025 vaccine schedule"],
   "ai": [
    "Claude planned, wrote and tested each slice; I set the rules (suggest only, never prescribe; confidential data; plan and approval before every build) and reviewed every change.",
    "No AI service reads the reports. When the on-device parser misses values, a redacted prompt can be copied to the Claude app by hand and the answer pasted back.",
@@ -163,7 +163,8 @@ PROJECTS = [
    ["Parse on the device, not with a paid API", "Free, instant and private; the trade-off is a rule parser that has to be taught each lab's layout."],
    ["Suggestions with reasons, never prescriptions", "Every highlight says why it is shown and points to the doctor."],
    ["Hosted beta on self-hostable parts", "Supabase and a static app can move to k3s later without a rewrite."],
-   ["Word results as first-class values", "Urine routine and screening tests (Negative, Nil, Trace) are saved with a normal or abnormal flag instead of being dropped."]
+   ["Word results as first-class values", "Urine routine and screening tests (Negative, Nil, Trace) are saved with a normal or abnormal flag instead of being dropped."],
+   ["One schedule rule for app and reminders", "Whether a dose is due on a date (daily, weekdays, alternate days, days of each month) is decided by the same rule on the phone and in the reminder job, so the screen and the messages never disagree."]
   ],
   "learned": [
    "Real lab reports break neat assumptions: tiered ranges on following lines, units before values, the same word meaning a blood or a urine test depending on the section.",
@@ -176,7 +177,10 @@ PROJECTS = [
    ["15-10-2026", "Design pack: architecture, data model, security and recommendation policy"],
    ["19-10-2026", "Hosted beta: sign-in with 2FA, profiles, report upload and on-device OCR"],
    ["21-10-2026", "On-device parser and batch upload; no paid AI"],
-   ["21-10-2026", "Trends, WHO growth charts, vaccine schedule, two views; parser checked against real reports"]
+   ["21-10-2026", "Trends, WHO growth charts, vaccine schedule, two views; parser checked against real reports"],
+   ["22-10-2026", "Child record from the baby book; family accounts managed in the app, profiles private unless shared"],
+   ["22-10-2026", "Medicines from prescriptions, a 3-day share link, reminders by Telegram and email"],
+   ["22-10-2026", "Repeating schedules: alternate days, days of each month, weekdays"]
   ],
   "activity_source": "trackin",
   "screenshots": [
@@ -270,7 +274,7 @@ ACTIVITY = {
  "studio-planner": {"2026-06-10": 4, "2026-06-13": 5, "2026-06-20": 1, "2026-06-21": 2, "2026-10-04": 12},
  "azumi-website": {"2026-08-30": 4, "2026-08-31": 4, "2026-09-10": 5, "2026-10-03": 3},
  "portfolio": {"2026-10-04": 4},
- "trackin": {"2026-10-15": 1, "2026-10-19": 1, "2026-10-21": 7}
+ "trackin": {"2026-10-15": 1, "2026-10-19": 1, "2026-10-21": 10, "2026-10-22": 9}
 }
 
 def md(p):
@@ -308,7 +312,7 @@ def main(out):
     for p in PROJECTS:
         d = os.path.join(out, "projects", p["slug"]); os.makedirs(d, exist_ok=True)
         open(os.path.join(d, "README.md"), "w").write(md(p))
-    data = {"updated": "21-10-2026", "projects": PROJECTS, "activity": ACTIVITY}
+    data = {"updated": "22-10-2026", "projects": PROJECTS, "activity": ACTIVITY}
     json.dump(data, open(os.path.join(out, "projects.json"), "w"), indent=1, ensure_ascii=False)
     rows = "\n".join(f"| [{p['name']}](projects/{p['slug']}/) | {p['tagline']} | {p['role']} | {p['status']} |" for p in PROJECTS)
     open(os.path.join(out, "README.md"), "w").write(f"""# Build logs
