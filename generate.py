@@ -164,6 +164,7 @@ PROJECTS = [
    ["Suggestions with reasons, never prescriptions", "Every highlight says why it is shown and points to the doctor."],
    ["Hosted beta on self-hostable parts", "Supabase and a static app can move to k3s later without a rewrite."],
    ["Word results as first-class values", "Urine routine and screening tests (Negative, Nil, Trace) are saved with a normal or abnormal flag instead of being dropped."],
+   ["A demo that cannot touch real data", "The public demo answers every request inside the browser from a fictional family, so sharing the link carries no risk to the family's records."],
    ["One schedule rule for app and reminders", "Whether a dose is due on a date (daily, weekdays, alternate days, days of each month) is decided by the same rule on the phone and in the reminder job, so the screen and the messages never disagree."]
   ],
   "learned": [
@@ -171,8 +172,8 @@ PROJECTS = [
    "A scan's OCR confidence is a usable signal: straight scans read reliably, angled photos need a warning and a manual check.",
    "Test the security model as code: row-level security tests run in CI on every change."
   ],
-  "demo": [],
-  "repo": {"visibility": "private", "note": "Code is private and the app holds family health records, so there is no public demo; screenshots use test data only."},
+  "demo": [{"label": "Live demo with a sample family (nothing is saved)", "url": "https://silver-panda-30186b.netlify.app/#/demo"}],
+  "repo": {"visibility": "private", "note": "Code is private and the app holds family health records. The live demo runs entirely in the browser with a fictional family and never contacts the real database; screenshots use test data only."},
   "milestones": [
    ["15-10-2026", "Design pack: architecture, data model, security and recommendation policy"],
    ["19-10-2026", "Hosted beta: sign-in with 2FA, profiles, report upload and on-device OCR"],
@@ -180,7 +181,9 @@ PROJECTS = [
    ["21-10-2026", "Trends, WHO growth charts, vaccine schedule, two views; parser checked against real reports"],
    ["22-10-2026", "Child record from the baby book; family accounts managed in the app, profiles private unless shared"],
    ["22-10-2026", "Medicines from prescriptions, a 3-day share link, reminders by Telegram and email"],
-   ["22-10-2026", "Repeating schedules: alternate days, days of each month, weekdays"]
+   ["22-10-2026", "Repeating schedules: alternate days, days of each month, weekdays"],
+   ["23-10-2026", "Summary for Doc: one page per visit, private tests left out by default"],
+   ["24-10-2026", "Clans for households, help on every screen, tour video and an in-browser demo"]
   ],
   "activity_source": "trackin",
   "screenshots": [
@@ -274,7 +277,7 @@ ACTIVITY = {
  "studio-planner": {"2026-06-10": 4, "2026-06-13": 5, "2026-06-20": 1, "2026-06-21": 2, "2026-10-04": 12},
  "azumi-website": {"2026-08-30": 4, "2026-08-31": 4, "2026-09-10": 5, "2026-10-03": 3},
  "portfolio": {"2026-10-04": 4},
- "trackin": {"2026-10-15": 1, "2026-10-19": 1, "2026-10-21": 10, "2026-10-22": 9}
+ "trackin": {"2026-10-15": 1, "2026-10-19": 1, "2026-10-21": 10, "2026-10-22": 8, "2026-10-23": 6, "2026-10-24": 5}
 }
 
 def md(p):
@@ -312,7 +315,7 @@ def main(out):
     for p in PROJECTS:
         d = os.path.join(out, "projects", p["slug"]); os.makedirs(d, exist_ok=True)
         open(os.path.join(d, "README.md"), "w").write(md(p))
-    data = {"updated": "22-10-2026", "projects": PROJECTS, "activity": ACTIVITY}
+    data = {"updated": "24-10-2026", "projects": PROJECTS, "activity": ACTIVITY}
     json.dump(data, open(os.path.join(out, "projects.json"), "w"), indent=1, ensure_ascii=False)
     rows = "\n".join(f"| [{p['name']}](projects/{p['slug']}/) | {p['tagline']} | {p['role']} | {p['status']} |" for p in PROJECTS)
     open(os.path.join(out, "README.md"), "w").write(f"""# Build logs

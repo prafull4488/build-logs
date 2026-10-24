@@ -49,6 +49,7 @@ JavaScript (no framework), installable PWA, pdf.js and Tesseract.js (English and
 | Suggestions with reasons, never prescriptions | Every highlight says why it is shown and points to the doctor. |
 | Hosted beta on self-hostable parts | Supabase and a static app can move to k3s later without a rewrite. |
 | Word results as first-class values | Urine routine and screening tests (Negative, Nil, Trace) are saved with a normal or abnormal flag instead of being dropped. |
+| A demo that cannot touch real data | The public demo answers every request inside the browser from a fictional family, so sharing the link carries no risk to the family's records. |
 | One schedule rule for app and reminders | Whether a dose is due on a date (daily, weekdays, alternate days, days of each month) is decided by the same rule on the phone and in the reminder job, so the screen and the messages never disagree. |
 
 ## What I learned
@@ -59,15 +60,15 @@ JavaScript (no framework), installable PWA, pdf.js and Tesseract.js (English and
 
 ## Demo
 
-No public demo yet.
+- [Live demo with a sample family (nothing is saved)](https://silver-panda-30186b.netlify.app/#/demo)
 
 ## GitHub repo
 
-Code is private and the app holds family health records, so there is no public demo; screenshots use test data only.
+Code is private and the app holds family health records. The live demo runs entirely in the browser with a fictional family and never contacts the real database; screenshots use test data only.
 
 ## Activity
 
-21 commits across 4 active days, 2026-10-15 to 2026-10-22 (counts only; commit messages stay private).
+31 commits across 6 active days, 2026-10-15 to 2026-10-24 (counts only; commit messages stay private).
 
 | Date | Milestone |
 |---|---|
@@ -78,6 +79,8 @@ Code is private and the app holds family health records, so there is no public d
 | 22-10-2026 | Child record from the baby book; family accounts managed in the app, profiles private unless shared |
 | 22-10-2026 | Medicines from prescriptions, a 3-day share link, reminders by Telegram and email |
 | 22-10-2026 | Repeating schedules: alternate days, days of each month, weekdays |
+| 23-10-2026 | Summary for Doc: one page per visit, private tests left out by default |
+| 24-10-2026 | Clans for households, help on every screen, tour video and an in-browser demo |
 
 ## Screenshots
 
