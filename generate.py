@@ -75,12 +75,15 @@ PROJECTS = [
    ["Single file, no build step", "Fast to change and deploy; the whole app is one reviewable file."],
    ["Roles enforced with row-level security", "Admin, editor, viewer and client roles; the public key alone cannot read any data."],
    ["Admin key never in the browser", "Creating client accounts and invite links runs in an Edge Function."],
-   ["One room list per project", "Scope and checklist share the same rooms, so renaming or removing a room updates both."]
+   ["One room list per project", "Scope and checklist share the same rooms, so renaming or removing a room updates both."],
+   ["Everything that needs doing ends up in the checklist", "Meeting actions, inventory orders and scope items marked Yes create room tasks; ticking either side ticks both."],
+   ["Categories worked out from wording", "Tasks are filed under shared work categories by keyword rules, so existing items needed no data change."]
   ],
   "learned": [
    "Lock down data access before adding features; adding logins and RLS early changed the shape of every later screen.",
    "Phased redesigns keep a live tool usable while it changes.",
-   "Single-file apps are fast to ship, but user input needs escaping everywhere, not only on new screens."
+   "Single-file apps are fast to ship, but user input needs escaping everywhere, not only on new screens.",
+   "Typed shortcuts suit the builder, not the user; plain blocks replaced them."
   ],
   "demo": [{"label": "Live app (sign-in required)", "url": "https://soft-lokum-c2858d.netlify.app/"}],
   "repo": {"visibility": "private", "note": "Code is private; activity is summarised below."},
@@ -89,7 +92,10 @@ PROJECTS = [
    ["04-10-2026", "Logins, roles and row-level security"],
    ["04-10-2026", "Client view and invites"],
    ["04-10-2026", "Redesign phases 1 to 4"],
-   ["05-10-2026", "Client summary charts, budget tab and survey email"]
+   ["05-10-2026", "Client summary charts, budget tab and survey email"],
+   ["14-10-2026", "Project workspace, meeting record with delays by who caused them, architect fees"],
+   ["19-10-2026", "Room inventory with paint schedule and linked checklist tasks"],
+   ["01-11-2026", "Meeting blocks and checklist category filter"]
   ],
   "activity_source": "studio-planner",
   "screenshots": [
@@ -274,7 +280,7 @@ PROJECTS = [
 
 ACTIVITY = {
  "bookamech": {"2026-08-09": 4, "2026-08-10": 3, "2026-08-15": 2, "2026-08-30": 4, "2026-08-31": 1},
- "studio-planner": {"2026-06-10": 4, "2026-06-13": 5, "2026-06-20": 1, "2026-06-21": 2, "2026-10-04": 12},
+ "studio-planner": {"2026-06-10": 4, "2026-06-13": 5, "2026-06-20": 1, "2026-06-21": 2, "2026-10-04": 12, "2026-10-13": 15, "2026-10-18": 6, "2026-10-22": 1, "2026-11-01": 3},
  "azumi-website": {"2026-08-30": 4, "2026-08-31": 4, "2026-09-10": 5, "2026-10-03": 3},
  "portfolio": {"2026-10-04": 4},
  "trackin": {"2026-10-15": 1, "2026-10-19": 1, "2026-10-21": 10, "2026-10-22": 8, "2026-10-23": 6, "2026-10-24": 5}
@@ -315,7 +321,7 @@ def main(out):
     for p in PROJECTS:
         d = os.path.join(out, "projects", p["slug"]); os.makedirs(d, exist_ok=True)
         open(os.path.join(d, "README.md"), "w").write(md(p))
-    data = {"updated": "24-10-2026", "projects": PROJECTS, "activity": ACTIVITY}
+    data = {"updated": "02-11-2026", "projects": PROJECTS, "activity": ACTIVITY}
     json.dump(data, open(os.path.join(out, "projects.json"), "w"), indent=1, ensure_ascii=False)
     rows = "\n".join(f"| [{p['name']}](projects/{p['slug']}/) | {p['tagline']} | {p['role']} | {p['status']} |" for p in PROJECTS)
     open(os.path.join(out, "README.md"), "w").write(f"""# Build logs
