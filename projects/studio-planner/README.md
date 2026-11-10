@@ -26,13 +26,14 @@ flowchart LR
   APP --> AUTH[Supabase Auth: admin / editor / viewer / client]
   APP --> EF[Edge Function: client invites]
   S[Client survey page] --> NF[Netlify Forms, emailed to the studio]
+  APP --> GD[Google Drive API: brochure PDFs, read page by page]
 ```
 
 Offline first, synced to Supabase. Keys are injected from host environment variables at build time; the public key has no data access on its own.
 
 ## Technologies
 
-HTML, CSS and JavaScript (single file, no framework), Supabase (Postgres, Auth, RLS, Edge Functions), Netlify (hosting, Forms), Playwright (release checks)
+HTML, CSS and JavaScript (single file, no framework), installable as an app, Supabase (Postgres, Auth, RLS, Edge Functions), Google Drive API and pdf.js (brochure library), Netlify (hosting, Forms), Playwright (release checks)
 
 ## How AI was used
 
@@ -50,6 +51,8 @@ HTML, CSS and JavaScript (single file, no framework), Supabase (Postgres, Auth, 
 | One room list per project | Scope and checklist share the same rooms, so renaming or removing a room updates both. |
 | Everything that needs doing ends up in the checklist | Meeting actions, inventory orders and scope items marked Yes create room tasks; ticking either side ticks both. |
 | Categories worked out from wording | Tasks are filed under shared work categories by keyword rules, so existing items needed no data change. |
+| Brochures stay where the studio keeps them | Supplier PDFs remain in the studio's Google Drive; folders and subfolders become categories, so the library grows without uploads. Clients save pages to a project wishlist and the studio approves or declines each one. |
+| Light features before more data entry | A supplier, order and delivery module was deferred because it needs data kept current every day; the Today page, handover pack and installable app reuse what the studio already enters. |
 
 ## What I learned
 
@@ -57,6 +60,7 @@ HTML, CSS and JavaScript (single file, no framework), Supabase (Postgres, Auth, 
 - Phased redesigns keep a live tool usable while it changes.
 - Single-file apps are fast to ship, but user input needs escaping everywhere, not only on new screens.
 - Typed shortcuts suit the builder, not the user; plain blocks replaced them.
+- Before building a module, ask who will keep its data up to date; the answer decided what was built next.
 
 ## Demo
 
@@ -68,7 +72,7 @@ Code is private; activity is summarised below.
 
 ## Activity
 
-49 commits across 9 active days, 2026-06-10 to 2026-11-01 (counts only; commit messages stay private).
+56 commits across 11 active days, 2026-06-10 to 2026-11-10 (counts only; commit messages stay private).
 
 | Date | Milestone |
 |---|---|
@@ -80,6 +84,9 @@ Code is private; activity is summarised below.
 | 14-10-2026 | Project workspace, meeting record with delays by who caused them, architect fees |
 | 19-10-2026 | Room inventory with paint schedule and linked checklist tasks |
 | 01-11-2026 | Meeting blocks and checklist category filter |
+| 02-11-2026 | Simpler projects: five tabs, settings page, next step and needs attention |
+| 09-11-2026 | Tools page for site measurements, and a brochure library from Google Drive with project wishlists |
+| 11-11-2026 | Today start page with a calendar file, handover pack PDF, installable app |
 
 ## Screenshots
 

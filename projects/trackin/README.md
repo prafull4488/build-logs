@@ -1,8 +1,8 @@
 # Trackin
 
-**A private health record for one family, read on the device**
+**A private health record for families, read on the device**
 
-Role: Designed and built (AI-assisted development) · Status: Private beta, in family use
+Role: Designed and built (AI-assisted development) · Status: Beta, open to other families by invitation
 
 ## The problem
 
@@ -51,9 +51,13 @@ JavaScript (no framework), installable PWA, pdf.js and Tesseract.js (English and
 | Word results as first-class values | Urine routine and screening tests (Negative, Nil, Trace) are saved with a normal or abnormal flag instead of being dropped. |
 | A demo that cannot touch real data | The public demo answers every request inside the browser from a fictional family, so sharing the link carries no risk to the family's records. |
 | One schedule rule for app and reminders | Whether a dose is due on a date (daily, weekdays, alternate days, days of each month) is decided by the same rule on the phone and in the reminder job, so the screen and the messages never disagree. |
+| Safety step before other families | Per-family limits, a full data download, account and family delete, a privacy notice and passphrase-protected backups shipped before the first invitation went out. |
+| Invite from a waitlist, not open sign-up | Visitors join a waitlist from the demo; the owner invites a family from the owner view, so growth stays deliberate while the beta is free. |
+| One shared project, not one per family | A separate database per family would work, but setup, updates and free-plan pausing make it a poor default; it is kept as a bring-your-own-server option after the k3s phase. |
 
 ## What I learned
 
+- Make leaving easy before inviting anyone in: download and delete came before the first invitation.
 - Real lab reports break neat assumptions: tiered ranges on following lines, units before values, the same word meaning a blood or a urine test depending on the section.
 - A scan's OCR confidence is a usable signal: straight scans read reliably, angled photos need a warning and a manual check.
 - Test the security model as code: row-level security tests run in CI on every change.
@@ -68,7 +72,7 @@ Code is private and the app holds family health records. The live demo runs enti
 
 ## Activity
 
-31 commits across 6 active days, 2026-10-15 to 2026-10-24 (counts only; commit messages stay private).
+35 commits across 8 active days, 2026-10-15 to 2026-11-01 (counts only; commit messages stay private).
 
 | Date | Milestone |
 |---|---|
@@ -81,6 +85,9 @@ Code is private and the app holds family health records. The live demo runs enti
 | 22-10-2026 | Repeating schedules: alternate days, days of each month, weekdays |
 | 23-10-2026 | Summary for Doc: one page per visit, private tests left out by default |
 | 24-10-2026 | Clans for households, help on every screen, tour video and an in-browser demo |
+| 24-10-2026 | "I want it too" waitlist from the demo, with Telegram and email alerts |
+| 31-10-2026 | Ready for other families: limits, data download, delete, privacy notice, owner view, backups |
+| 01-11-2026 | Invite a family to start, from the owner view |
 
 ## Screenshots
 
@@ -89,4 +96,4 @@ Code is private and the app holds family health records. The live demo runs enti
 
 ## Status
 
-Private beta, in family use
+Beta, open to other families by invitation

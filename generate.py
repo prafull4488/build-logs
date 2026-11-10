@@ -63,9 +63,9 @@ PROJECTS = [
    "Keep it a single file with no build step, so it is easy to change and deploy.",
    "Give clients a read-only view of exactly what the studio chooses to share."
   ],
-  "architecture": "flowchart LR\n  U[Studio staff] --> APP[Single-file HTML/JS app on Netlify]\n  C[Client] --> CV[Read-only client view]\n  APP --> LS[(Browser storage, offline first)]\n  APP -. sync .-> SB[(Supabase Postgres with RLS)]\n  APP --> AUTH[Supabase Auth: admin / editor / viewer / client]\n  APP --> EF[Edge Function: client invites]\n  S[Client survey page] --> NF[Netlify Forms, emailed to the studio]",
+  "architecture": "flowchart LR\n  U[Studio staff] --> APP[Single-file HTML/JS app on Netlify]\n  C[Client] --> CV[Read-only client view]\n  APP --> LS[(Browser storage, offline first)]\n  APP -. sync .-> SB[(Supabase Postgres with RLS)]\n  APP --> AUTH[Supabase Auth: admin / editor / viewer / client]\n  APP --> EF[Edge Function: client invites]\n  S[Client survey page] --> NF[Netlify Forms, emailed to the studio]\n  APP --> GD[Google Drive API: brochure PDFs, read page by page]",
   "architecture_note": "Offline first, synced to Supabase. Keys are injected from host environment variables at build time; the public key has no data access on its own.",
-  "tech": ["HTML, CSS and JavaScript (single file, no framework)", "Supabase (Postgres, Auth, RLS, Edge Functions)", "Netlify (hosting, Forms)", "Playwright (release checks)"],
+  "tech": ["HTML, CSS and JavaScript (single file, no framework), installable as an app", "Supabase (Postgres, Auth, RLS, Edge Functions)", "Google Drive API and pdf.js (brochure library)", "Netlify (hosting, Forms)", "Playwright (release checks)"],
   "ai": [
    "Claude handled planning, code and tests across the redesign, delivered in four phases.",
    "Every release was checked headless with Playwright at desktop and 375 px before deploying.",
@@ -77,13 +77,16 @@ PROJECTS = [
    ["Admin key never in the browser", "Creating client accounts and invite links runs in an Edge Function."],
    ["One room list per project", "Scope and checklist share the same rooms, so renaming or removing a room updates both."],
    ["Everything that needs doing ends up in the checklist", "Meeting actions, inventory orders and scope items marked Yes create room tasks; ticking either side ticks both."],
-   ["Categories worked out from wording", "Tasks are filed under shared work categories by keyword rules, so existing items needed no data change."]
+   ["Categories worked out from wording", "Tasks are filed under shared work categories by keyword rules, so existing items needed no data change."],
+   ["Brochures stay where the studio keeps them", "Supplier PDFs remain in the studio's Google Drive; folders and subfolders become categories, so the library grows without uploads. Clients save pages to a project wishlist and the studio approves or declines each one."],
+   ["Light features before more data entry", "A supplier, order and delivery module was deferred because it needs data kept current every day; the Today page, handover pack and installable app reuse what the studio already enters."]
   ],
   "learned": [
    "Lock down data access before adding features; adding logins and RLS early changed the shape of every later screen.",
    "Phased redesigns keep a live tool usable while it changes.",
    "Single-file apps are fast to ship, but user input needs escaping everywhere, not only on new screens.",
-   "Typed shortcuts suit the builder, not the user; plain blocks replaced them."
+   "Typed shortcuts suit the builder, not the user; plain blocks replaced them.",
+   "Before building a module, ask who will keep its data up to date; the answer decided what was built next."
   ],
   "demo": [{"label": "Live app (sign-in required)", "url": "https://soft-lokum-c2858d.netlify.app/"}],
   "repo": {"visibility": "private", "note": "Code is private; activity is summarised below."},
@@ -95,7 +98,10 @@ PROJECTS = [
    ["05-10-2026", "Client summary charts, budget tab and survey email"],
    ["14-10-2026", "Project workspace, meeting record with delays by who caused them, architect fees"],
    ["19-10-2026", "Room inventory with paint schedule and linked checklist tasks"],
-   ["01-11-2026", "Meeting blocks and checklist category filter"]
+   ["01-11-2026", "Meeting blocks and checklist category filter"],
+   ["02-11-2026", "Simpler projects: five tabs, settings page, next step and needs attention"],
+   ["09-11-2026", "Tools page for site measurements, and a brochure library from Google Drive with project wishlists"],
+   ["11-11-2026", "Today start page with a calendar file, handover pack PDF, installable app"]
   ],
   "activity_source": "studio-planner",
   "screenshots": [
@@ -118,7 +124,7 @@ PROJECTS = [
   ],
   "architecture": "flowchart LR\n  V[Visitor] --> E[Edge Function: SEO, redirects, 404]\n  E --> S[React SPA on Netlify]\n  S --> API[Netlify Function API]\n  A[Admin console] --> API\n  API --> B[(Netlify Blobs: content, images, revisions)]\n  S --> F[Netlify Forms]",
   "architecture_note": "Content is one JSON document with the last 30 revisions, so every save is atomic and any change can be undone.",
-  "tech": ["React", "Vite", "Tailwind CSS", "Netlify Functions", "Netlify Edge Functions", "Netlify Blobs", "Netlify Forms"],
+  "tech": ["React", "Vite", "Tailwind CSS", "Netlify Functions", "Netlify Edge Functions", "Netlify Blobs", "Netlify Forms", "Google Analytics 4 and Microsoft Clarity (after consent)", "Structured data and llms.txt"],
   "ai": [
    "Built with AI-assisted development: planning, code and documentation, including an operations runbook and a decisions log."
   ],
@@ -126,18 +132,25 @@ PROJECTS = [
    ["Netlify Blobs instead of a database", "The site is small; Blobs needs no extra service and survives deploys."],
    ["One content document with revisions", "Atomic saves and easy undo."],
    ["Edge Function for SEO", "Real titles, canonical URLs, 301s and 404 status without server-side rendering."],
-   ["Optimistic concurrency", "Two editors cannot overwrite each other's changes."]
+   ["Optimistic concurrency", "Two editors cannot overwrite each other's changes."],
+   ["Analytics only after consent", "Analytics and session recording load only when the visitor agrees, with a privacy page; the numbers under-count by design, and that is accepted."],
+   ["Written for search and AI answers", "Richer structured data, an llms.txt summary and articles, so search engines and AI assistants can describe the studio accurately."]
   ],
   "learned": [
    "Plan redirects from the old site before launch; search traffic depends on it.",
-   "A small site still benefits from revisions and conflict checks once non-developers edit it."
+   "A small site still benefits from revisions and conflict checks once non-developers edit it.",
+   "Test the enquiry path end to end on the live site; a form can look fine and still not deliver."
   ],
   "demo": [{"label": "azumidesigns.co.in", "url": "https://azumidesigns.co.in"}],
   "repo": {"visibility": "private", "note": "Code is private; activity is summarised below."},
   "milestones": [
    ["30-08-2026", "First website"],
    ["03-10-2026", "Redesign with admin console and CMS backend"],
-   ["03-10-2026", "Project pages, redirects from the old site, lead tracking"]
+   ["03-10-2026", "Project pages, redirects from the old site, lead tracking"],
+   ["22-10-2026", "Project progress updates, AI-search readiness and articles"],
+   ["22-10-2026", "Walkthrough video and a free-consultation offer across the site"],
+   ["23-10-2026", "Consent-based analytics with a privacy page"],
+   ["25-10-2026", "Structured-data fixes; contact form delivery confirmed"]
   ],
   "activity_source": "azumi-website",
   "screenshots": []
@@ -145,10 +158,10 @@ PROJECTS = [
  {
   "slug": "trackin",
   "name": "Trackin",
-  "tagline": "A private health record for one family, read on the device",
+  "tagline": "A private health record for families, read on the device",
   "kind": "build",
   "role": "Designed and built (AI-assisted development)",
-  "status": "Private beta, in family use",
+  "status": "Beta, open to other families by invitation",
   "problem": "A family's lab reports pile up as PDFs, scans and phone photos from different labs, some in another language. Nobody can say whether a value improved since last year, the next vaccine for a baby is tracked on paper, and the reports themselves are among the most sensitive data a family has.",
   "planned": [
    "Start with two profiles, an adult and an infant, and add the rest of the family later.",
@@ -171,9 +184,13 @@ PROJECTS = [
    ["Hosted beta on self-hostable parts", "Supabase and a static app can move to k3s later without a rewrite."],
    ["Word results as first-class values", "Urine routine and screening tests (Negative, Nil, Trace) are saved with a normal or abnormal flag instead of being dropped."],
    ["A demo that cannot touch real data", "The public demo answers every request inside the browser from a fictional family, so sharing the link carries no risk to the family's records."],
-   ["One schedule rule for app and reminders", "Whether a dose is due on a date (daily, weekdays, alternate days, days of each month) is decided by the same rule on the phone and in the reminder job, so the screen and the messages never disagree."]
+   ["One schedule rule for app and reminders", "Whether a dose is due on a date (daily, weekdays, alternate days, days of each month) is decided by the same rule on the phone and in the reminder job, so the screen and the messages never disagree."],
+   ["Safety step before other families", "Per-family limits, a full data download, account and family delete, a privacy notice and passphrase-protected backups shipped before the first invitation went out."],
+   ["Invite from a waitlist, not open sign-up", "Visitors join a waitlist from the demo; the owner invites a family from the owner view, so growth stays deliberate while the beta is free."],
+   ["One shared project, not one per family", "A separate database per family would work, but setup, updates and free-plan pausing make it a poor default; it is kept as a bring-your-own-server option after the k3s phase."]
   ],
   "learned": [
+   "Make leaving easy before inviting anyone in: download and delete came before the first invitation.",
    "Real lab reports break neat assumptions: tiered ranges on following lines, units before values, the same word meaning a blood or a urine test depending on the section.",
    "A scan's OCR confidence is a usable signal: straight scans read reliably, angled photos need a warning and a manual check.",
    "Test the security model as code: row-level security tests run in CI on every change."
@@ -189,7 +206,10 @@ PROJECTS = [
    ["22-10-2026", "Medicines from prescriptions, a 3-day share link, reminders by Telegram and email"],
    ["22-10-2026", "Repeating schedules: alternate days, days of each month, weekdays"],
    ["23-10-2026", "Summary for Doc: one page per visit, private tests left out by default"],
-   ["24-10-2026", "Clans for households, help on every screen, tour video and an in-browser demo"]
+   ["24-10-2026", "Clans for households, help on every screen, tour video and an in-browser demo"],
+   ["24-10-2026", "\"I want it too\" waitlist from the demo, with Telegram and email alerts"],
+   ["31-10-2026", "Ready for other families: limits, data download, delete, privacy notice, owner view, backups"],
+   ["01-11-2026", "Invite a family to start, from the owner view"]
   ],
   "activity_source": "trackin",
   "screenshots": [
@@ -280,10 +300,10 @@ PROJECTS = [
 
 ACTIVITY = {
  "bookamech": {"2026-08-09": 4, "2026-08-10": 3, "2026-08-15": 2, "2026-08-30": 4, "2026-08-31": 1},
- "studio-planner": {"2026-06-10": 4, "2026-06-13": 5, "2026-06-20": 1, "2026-06-21": 2, "2026-10-04": 12, "2026-10-13": 15, "2026-10-18": 6, "2026-10-22": 1, "2026-11-01": 3},
- "azumi-website": {"2026-08-30": 4, "2026-08-31": 4, "2026-09-10": 5, "2026-10-03": 3},
+ "studio-planner": {"2026-06-10": 4, "2026-06-13": 5, "2026-06-20": 1, "2026-06-21": 2, "2026-10-04": 12, "2026-10-13": 15, "2026-10-18": 6, "2026-10-22": 1, "2026-11-01": 3, "2026-11-09": 1, "2026-11-10": 6},
+ "azumi-website": {"2026-08-30": 4, "2026-08-31": 4, "2026-09-10": 5, "2026-10-03": 3, "2026-10-22": 9, "2026-10-23": 1, "2026-10-25": 2},
  "portfolio": {"2026-10-04": 4},
- "trackin": {"2026-10-15": 1, "2026-10-19": 1, "2026-10-21": 10, "2026-10-22": 8, "2026-10-23": 6, "2026-10-24": 5}
+ "trackin": {"2026-10-15": 1, "2026-10-19": 1, "2026-10-21": 10, "2026-10-22": 8, "2026-10-23": 6, "2026-10-24": 5, "2026-10-31": 2, "2026-11-01": 2}
 }
 
 def md(p):
@@ -321,7 +341,7 @@ def main(out):
     for p in PROJECTS:
         d = os.path.join(out, "projects", p["slug"]); os.makedirs(d, exist_ok=True)
         open(os.path.join(d, "README.md"), "w").write(md(p))
-    data = {"updated": "02-11-2026", "projects": PROJECTS, "activity": ACTIVITY}
+    data = {"updated": "11-11-2026", "projects": PROJECTS, "activity": ACTIVITY}
     json.dump(data, open(os.path.join(out, "projects.json"), "w"), indent=1, ensure_ascii=False)
     rows = "\n".join(f"| [{p['name']}](projects/{p['slug']}/) | {p['tagline']} | {p['role']} | {p['status']} |" for p in PROJECTS)
     open(os.path.join(out, "README.md"), "w").write(f"""# Build logs

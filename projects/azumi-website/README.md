@@ -30,7 +30,7 @@ Content is one JSON document with the last 30 revisions, so every save is atomic
 
 ## Technologies
 
-React, Vite, Tailwind CSS, Netlify Functions, Netlify Edge Functions, Netlify Blobs, Netlify Forms
+React, Vite, Tailwind CSS, Netlify Functions, Netlify Edge Functions, Netlify Blobs, Netlify Forms, Google Analytics 4 and Microsoft Clarity (after consent), Structured data and llms.txt
 
 ## How AI was used
 
@@ -44,11 +44,14 @@ React, Vite, Tailwind CSS, Netlify Functions, Netlify Edge Functions, Netlify Bl
 | One content document with revisions | Atomic saves and easy undo. |
 | Edge Function for SEO | Real titles, canonical URLs, 301s and 404 status without server-side rendering. |
 | Optimistic concurrency | Two editors cannot overwrite each other's changes. |
+| Analytics only after consent | Analytics and session recording load only when the visitor agrees, with a privacy page; the numbers under-count by design, and that is accepted. |
+| Written for search and AI answers | Richer structured data, an llms.txt summary and articles, so search engines and AI assistants can describe the studio accurately. |
 
 ## What I learned
 
 - Plan redirects from the old site before launch; search traffic depends on it.
 - A small site still benefits from revisions and conflict checks once non-developers edit it.
+- Test the enquiry path end to end on the live site; a form can look fine and still not deliver.
 
 ## Demo
 
@@ -60,13 +63,17 @@ Code is private; activity is summarised below.
 
 ## Activity
 
-16 commits across 4 active days, 2026-08-30 to 2026-10-03 (counts only; commit messages stay private).
+28 commits across 7 active days, 2026-08-30 to 2026-10-25 (counts only; commit messages stay private).
 
 | Date | Milestone |
 |---|---|
 | 30-08-2026 | First website |
 | 03-10-2026 | Redesign with admin console and CMS backend |
 | 03-10-2026 | Project pages, redirects from the old site, lead tracking |
+| 22-10-2026 | Project progress updates, AI-search readiness and articles |
+| 22-10-2026 | Walkthrough video and a free-consultation offer across the site |
+| 23-10-2026 | Consent-based analytics with a privacy page |
+| 25-10-2026 | Structured-data fixes; contact form delivery confirmed |
 
 ## Status
 
