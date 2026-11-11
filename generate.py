@@ -173,9 +173,9 @@ PROJECTS = [
    "Show change over time against each lab's own range, with the reason for every highlight, and never prescribe: the decision stays with the doctor.",
    "Ship a hosted beta first to test from a phone, on components that can move unchanged to a self-hosted Kubernetes stack later."
   ],
-  "architecture": "flowchart LR\n  P[Phone, tablet or laptop] --> PWA[Installable web app on Netlify]\n  PWA --> OCR[On-device OCR + parser]\n  PWA --> AUTH[Supabase Auth: password + TOTP 2FA]\n  PWA --> DB[(Postgres: RLS + 2FA gate + audit log)]\n  PWA --> ST[(Private storage: original reports)]\n  GH[GitHub Actions] --> T[RLS tests, browser tests, secret scan]\n  GH --> MIG[Migrations to Supabase]",
+  "architecture": "flowchart LR\n  P[Phone, tablet or laptop] --> PWA[Installable web app on Netlify]\n  PWA --> OCR[On-device OCR + parser]\n  PWA --> AUTH[Supabase Auth: password + TOTP 2FA]\n  PWA --> DB[(Postgres: RLS + 2FA gate + audit log)]\n  PWA --> ST[(Private storage: original reports)]\n  CRON[pg_cron every 5 min] --> REM[Edge Function: reminders]\n  REM --> N[Telegram, email and phone notifications]\n  N --> P\n  GH[GitHub Actions] --> T[RLS tests, browser tests, secret scan]\n  GH --> MIG[Migrations to Supabase]",
   "architecture_note": "Netlify holds no health data. Every table has row-level security plus a restrictive policy that requires a 2FA session; the service key never leaves CI. The next phase moves the same app and a self-hosted Supabase to k3s with Helm and Argo CD.",
-  "tech": ["JavaScript (no framework), installable PWA", "pdf.js and Tesseract.js (English and Bulgarian OCR in the browser)", "Supabase (Postgres, Auth with TOTP, RLS, Storage, Edge Functions, pg_cron)", "Telegram Bot API and Brevo (reminders)", "Netlify", "GitHub Actions", "Playwright", "WHO growth standards, IAP 2025 vaccine schedule"],
+  "tech": ["JavaScript (no framework), installable PWA", "pdf.js and Tesseract.js (English and Bulgarian OCR in the browser)", "Supabase (Postgres, Auth with TOTP, RLS, Storage, Edge Functions, pg_cron)", "Telegram Bot API, Brevo and Web Push (reminders; push signed and encrypted with Web Crypto, no packages)", "Netlify", "GitHub Actions", "Playwright", "WHO growth standards, IAP 2025 vaccine schedule"],
   "ai": [
    "Claude planned, wrote and tested each slice; I set the rules (suggest only, never prescribe; confidential data; plan and approval before every build) and reviewed every change.",
    "No AI service reads the reports. When the on-device parser misses values, a redacted prompt can be copied to the Claude app by hand and the answer pasted back.",
@@ -191,13 +191,15 @@ PROJECTS = [
    ["One schedule rule for app and reminders", "Whether a dose is due on a date (daily, weekdays, alternate days, days of each month) is decided by the same rule on the phone and in the reminder job, so the screen and the messages never disagree."],
    ["Safety step before other families", "Per-family limits, a full data download, account and family delete, a privacy notice and passphrase-protected backups shipped before the first invitation went out."],
    ["Invite from a waitlist, not open sign-up", "Visitors join a waitlist from the demo; the owner invites a family from the owner view, so growth stays deliberate while the beta is free."],
+   ["Finish the web app instead of a store app", "Install from the browser, home-screen shortcuts, sharing reports into the app and phone notifications cover daily use on Android and iPhone; there is no store review and every deploy updates every phone at once."],
    ["One shared project, not one per family", "A separate database per family would work, but setup, updates and free-plan pausing make it a poor default; it is kept as a bring-your-own-server option after the k3s phase."]
   ],
   "learned": [
    "Make leaving easy before inviting anyone in: download and delete came before the first invitation.",
    "Real lab reports break neat assumptions: tiered ranges on following lines, units before values, the same word meaning a blood or a urine test depending on the section.",
    "A scan's OCR confidence is a usable signal: straight scans read reliably, angled photos need a warning and a manual check.",
-   "Test the security model as code: row-level security tests run in CI on every change."
+   "Test the security model as code: row-level security tests run in CI on every change.",
+   "Phone notifications need no third-party package: Web Push signing and encryption are a few functions on Web Crypto, tested by decrypting the message as a browser would."
   ],
   "demo": [{"label": "Live demo with a sample family (nothing is saved)", "url": "https://silver-panda-30186b.netlify.app/#/demo"}],
   "repo": {"visibility": "private", "note": "Code is private and the app holds family health records. The live demo runs entirely in the browser with a fictional family and never contacts the real database; screenshots use test data only."},
@@ -213,7 +215,8 @@ PROJECTS = [
    ["24-10-2026", "Clans for households, help on every screen, tour video and an in-browser demo"],
    ["24-10-2026", "\"I want it too\" waitlist from the demo, with Telegram and email alerts"],
    ["31-10-2026", "Ready for other families: limits, data download, delete, privacy notice, owner view, backups"],
-   ["01-11-2026", "Invite a family to start, from the owner view"]
+   ["01-11-2026", "Invite a family to start, from the owner view"],
+   ["11-11-2026", "Phone app: install, home-screen shortcuts, share reports into the app, phone notifications with Mark taken, vaccine reminders"]
   ],
   "activity_source": "trackin",
   "screenshots": [
@@ -307,7 +310,7 @@ ACTIVITY = {
  "studio-planner": {"2026-06-10": 4, "2026-06-13": 5, "2026-06-20": 1, "2026-06-21": 2, "2026-10-04": 12, "2026-10-13": 15, "2026-10-18": 6, "2026-10-22": 1, "2026-11-01": 3, "2026-11-09": 1, "2026-11-10": 7},
  "azumi-website": {"2026-08-30": 4, "2026-08-31": 4, "2026-09-10": 5, "2026-10-03": 3, "2026-10-22": 9, "2026-10-23": 1, "2026-10-25": 2},
  "portfolio": {"2026-10-04": 4},
- "trackin": {"2026-10-15": 1, "2026-10-19": 1, "2026-10-21": 10, "2026-10-22": 8, "2026-10-23": 6, "2026-10-24": 5, "2026-10-31": 2, "2026-11-01": 2}
+ "trackin": {"2026-10-15": 1, "2026-10-19": 1, "2026-10-21": 10, "2026-10-22": 8, "2026-10-23": 6, "2026-10-24": 5, "2026-10-31": 2, "2026-11-01": 2, "2026-11-11": 2}
 }
 
 def md(p):

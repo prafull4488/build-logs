@@ -24,6 +24,9 @@ flowchart LR
   PWA --> AUTH[Supabase Auth: password + TOTP 2FA]
   PWA --> DB[(Postgres: RLS + 2FA gate + audit log)]
   PWA --> ST[(Private storage: original reports)]
+  CRON[pg_cron every 5 min] --> REM[Edge Function: reminders]
+  REM --> N[Telegram, email and phone notifications]
+  N --> P
   GH[GitHub Actions] --> T[RLS tests, browser tests, secret scan]
   GH --> MIG[Migrations to Supabase]
 ```
@@ -32,7 +35,7 @@ Netlify holds no health data. Every table has row-level security plus a restrict
 
 ## Technologies
 
-JavaScript (no framework), installable PWA, pdf.js and Tesseract.js (English and Bulgarian OCR in the browser), Supabase (Postgres, Auth with TOTP, RLS, Storage, Edge Functions, pg_cron), Telegram Bot API and Brevo (reminders), Netlify, GitHub Actions, Playwright, WHO growth standards, IAP 2025 vaccine schedule
+JavaScript (no framework), installable PWA, pdf.js and Tesseract.js (English and Bulgarian OCR in the browser), Supabase (Postgres, Auth with TOTP, RLS, Storage, Edge Functions, pg_cron), Telegram Bot API, Brevo and Web Push (reminders; push signed and encrypted with Web Crypto, no packages), Netlify, GitHub Actions, Playwright, WHO growth standards, IAP 2025 vaccine schedule
 
 ## How AI was used
 
@@ -53,6 +56,7 @@ JavaScript (no framework), installable PWA, pdf.js and Tesseract.js (English and
 | One schedule rule for app and reminders | Whether a dose is due on a date (daily, weekdays, alternate days, days of each month) is decided by the same rule on the phone and in the reminder job, so the screen and the messages never disagree. |
 | Safety step before other families | Per-family limits, a full data download, account and family delete, a privacy notice and passphrase-protected backups shipped before the first invitation went out. |
 | Invite from a waitlist, not open sign-up | Visitors join a waitlist from the demo; the owner invites a family from the owner view, so growth stays deliberate while the beta is free. |
+| Finish the web app instead of a store app | Install from the browser, home-screen shortcuts, sharing reports into the app and phone notifications cover daily use on Android and iPhone; there is no store review and every deploy updates every phone at once. |
 | One shared project, not one per family | A separate database per family would work, but setup, updates and free-plan pausing make it a poor default; it is kept as a bring-your-own-server option after the k3s phase. |
 
 ## What I learned
@@ -61,6 +65,7 @@ JavaScript (no framework), installable PWA, pdf.js and Tesseract.js (English and
 - Real lab reports break neat assumptions: tiered ranges on following lines, units before values, the same word meaning a blood or a urine test depending on the section.
 - A scan's OCR confidence is a usable signal: straight scans read reliably, angled photos need a warning and a manual check.
 - Test the security model as code: row-level security tests run in CI on every change.
+- Phone notifications need no third-party package: Web Push signing and encryption are a few functions on Web Crypto, tested by decrypting the message as a browser would.
 
 ## Demo
 
@@ -72,7 +77,7 @@ Code is private and the app holds family health records. The live demo runs enti
 
 ## Activity
 
-35 commits across 8 active days, 2026-10-15 to 2026-11-01 (counts only; commit messages stay private).
+37 commits across 9 active days, 2026-10-15 to 2026-11-11 (counts only; commit messages stay private).
 
 | Date | Milestone |
 |---|---|
@@ -88,6 +93,7 @@ Code is private and the app holds family health records. The live demo runs enti
 | 24-10-2026 | "I want it too" waitlist from the demo, with Telegram and email alerts |
 | 31-10-2026 | Ready for other families: limits, data download, delete, privacy notice, owner view, backups |
 | 01-11-2026 | Invite a family to start, from the owner view |
+| 11-11-2026 | Phone app: install, home-screen shortcuts, share reports into the app, phone notifications with Mark taken, vaccine reminders |
 
 ## Screenshots
 
