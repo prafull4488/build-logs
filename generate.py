@@ -101,12 +101,16 @@ PROJECTS = [
    ["01-11-2026", "Meeting blocks and checklist category filter"],
    ["02-11-2026", "Simpler projects: five tabs, settings page, next step and needs attention"],
    ["09-11-2026", "Tools page for site measurements, and a brochure library from Google Drive with project wishlists"],
-   ["11-11-2026", "Today start page with a calendar file, handover pack PDF, installable app"]
+   ["11-11-2026", "Today start page with a calendar file, handover pack PDF, installable app"],
+   ["11-11-2026", "Finance expenses by month, newest first, with date filters"]
   ],
   "activity_source": "studio-planner",
   "screenshots": [
    {"file": "screenshots/studio-planner-dashboard.png", "caption": "Dashboard (sample data)"},
-   {"file": "screenshots/studio-planner-projects.png", "caption": "Projects (sample data)"}
+   {"file": "screenshots/studio-planner-projects.png", "caption": "Projects (sample data)"},
+   {"file": "screenshots/studio-planner-tools.png", "caption": "Tools for site measurements: length, area and land units (sample values)"},
+   {"file": "screenshots/studio-planner-brochures.png", "caption": "Brochure library read from Google Drive folders (sample brochures, fictional suppliers)"},
+   {"file": "screenshots/studio-planner-wishlist.png", "caption": "Project wishlist: brochure pages saved by the client or studio, approved or declined (sample data)"}
   ]
  },
  {
@@ -300,7 +304,7 @@ PROJECTS = [
 
 ACTIVITY = {
  "bookamech": {"2026-08-09": 4, "2026-08-10": 3, "2026-08-15": 2, "2026-08-30": 4, "2026-08-31": 1},
- "studio-planner": {"2026-06-10": 4, "2026-06-13": 5, "2026-06-20": 1, "2026-06-21": 2, "2026-10-04": 12, "2026-10-13": 15, "2026-10-18": 6, "2026-10-22": 1, "2026-11-01": 3, "2026-11-09": 1, "2026-11-10": 6},
+ "studio-planner": {"2026-06-10": 4, "2026-06-13": 5, "2026-06-20": 1, "2026-06-21": 2, "2026-10-04": 12, "2026-10-13": 15, "2026-10-18": 6, "2026-10-22": 1, "2026-11-01": 3, "2026-11-09": 1, "2026-11-10": 7},
  "azumi-website": {"2026-08-30": 4, "2026-08-31": 4, "2026-09-10": 5, "2026-10-03": 3, "2026-10-22": 9, "2026-10-23": 1, "2026-10-25": 2},
  "portfolio": {"2026-10-04": 4},
  "trackin": {"2026-10-15": 1, "2026-10-19": 1, "2026-10-21": 10, "2026-10-22": 8, "2026-10-23": 6, "2026-10-24": 5, "2026-10-31": 2, "2026-11-01": 2}

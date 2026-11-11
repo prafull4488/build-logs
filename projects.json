@@ -208,6 +208,10 @@
     [
      "11-11-2026",
      "Today start page with a calendar file, handover pack PDF, installable app"
+    ],
+    [
+     "11-11-2026",
+     "Finance expenses by month, newest first, with date filters"
     ]
    ],
    "activity_source": "studio-planner",
@@ -219,6 +223,18 @@
     {
      "file": "screenshots/studio-planner-projects.png",
      "caption": "Projects (sample data)"
+    },
+    {
+     "file": "screenshots/studio-planner-tools.png",
+     "caption": "Tools for site measurements: length, area and land units (sample values)"
+    },
+    {
+     "file": "screenshots/studio-planner-brochures.png",
+     "caption": "Brochure library read from Google Drive folders (sample brochures, fictional suppliers)"
+    },
+    {
+     "file": "screenshots/studio-planner-wishlist.png",
+     "caption": "Project wishlist: brochure pages saved by the client or studio, approved or declined (sample data)"
     }
    ]
   },
@@ -641,7 +657,7 @@
    "2026-10-22": 1,
    "2026-11-01": 3,
    "2026-11-09": 1,
-   "2026-11-10": 6
+   "2026-11-10": 7
   },
   "azumi-website": {
    "2026-08-30": 4,

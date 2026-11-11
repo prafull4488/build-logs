@@ -72,7 +72,7 @@ Code is private; activity is summarised below.
 
 ## Activity
 
-56 commits across 11 active days, 2026-06-10 to 2026-11-10 (counts only; commit messages stay private).
+57 commits across 11 active days, 2026-06-10 to 2026-11-10 (counts only; commit messages stay private).
 
 | Date | Milestone |
 |---|---|
@@ -87,11 +87,15 @@ Code is private; activity is summarised below.
 | 02-11-2026 | Simpler projects: five tabs, settings page, next step and needs attention |
 | 09-11-2026 | Tools page for site measurements, and a brochure library from Google Drive with project wishlists |
 | 11-11-2026 | Today start page with a calendar file, handover pack PDF, installable app |
+| 11-11-2026 | Finance expenses by month, newest first, with date filters |
 
 ## Screenshots
 
 ![Dashboard (sample data)](screenshots/studio-planner-dashboard.png)
 ![Projects (sample data)](screenshots/studio-planner-projects.png)
+![Tools for site measurements: length, area and land units (sample values)](screenshots/studio-planner-tools.png)
+![Brochure library read from Google Drive folders (sample brochures, fictional suppliers)](screenshots/studio-planner-brochures.png)
+![Project wishlist: brochure pages saved by the client or studio, approved or declined (sample data)](screenshots/studio-planner-wishlist.png)
 
 ## Status
 
